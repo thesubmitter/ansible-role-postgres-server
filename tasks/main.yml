@@ -1,0 +1,56 @@
+---
+
+- name: define distribution-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: define postgres version-specific variables
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family }}_pg-{{ postgres_server_version }}.yml"
+        - "{{ ansible_os_family }}_pg-default.yml"
+      paths:
+        - "vars"
+      skip: true
+  ignore_errors: true  # TODO: better solution
+
+- name: perform installation
+  include_tasks: install/{{ ansible_os_family }}.yml
+
+- name: initialize PostgreSQL database cluster
+  environment:
+    LC_ALL: "en_US.UTF-8"
+  command: "{{ postgres_server_cmd_initdb }}"
+  become: "{{ postgres_server_initdb_become }}"
+  become_user: "{{ postgres_server_user }}"
+  args:
+    creates: "{{ postgres_server_data_location }}/PG_VERSION"
+
+- name: install postgres configuration
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ postgres_server_config_location }}/{{ item }}"
+    owner: postgres
+    group: postgres
+    mode: u=rw,go=r
+  loop:
+    - pg_hba.conf
+    - postgresql.conf
+  notify: restart postgres
+
+- name: start and enable postgres server
+  systemd: name={{ postgres_server_service_name }} state=started enabled=yes
+#   ignore_errors: true
+
+# - name: log1
+#   command: systemctl status {{ postgres_server_service_name }}
+#   ignore_errors: true
+#   changed_when: false
+#   tags: [skip_ansible_lint]
+
+# - name: log2
+#   command: journalctl -xe
+#   ignore_errors: true
+#   changed_when: false
+#   tags: [skip_ansible_lint]

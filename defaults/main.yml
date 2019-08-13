@@ -1,0 +1,40 @@
+---
+
+# Default version of Postgres server to install.
+postgres_server_version: "9.6"
+
+# Server version in package:
+postgres_server_pkg_version: "{{ postgres_server_version|replace('.', '') }}"
+
+# Whether or not the files are on ZFS.
+postgres_server_volume_is_zfs: false
+
+# Postgres setting max_connections.
+postgres_server_max_connections: 100
+
+# Postgres setting shared_buffers.
+postgres_server_shared_buffers: 128MB
+
+# Postgres setting maintenance_work_mem.
+postgres_server_maintenance_work_mem: 64MB
+
+# Postgres setting effective_io_concurrency.
+postgres_server_effective_io_concurrency: 1
+
+# Postgres setting max_worker_processes.
+postgres_server_max_worker_processes: 8
+
+# Postgres setting max_parallel_maintenance_workers.
+postgres_server_max_parallel_maintenance_workers: 2
+
+# Postgres setting max_parallel_workers_per_gather.
+postgres_server_max_parallel_workers_per_gather: 2
+
+# Postgres setting parallel_leader_participation.
+postgres_server_parallel_leader_participation: true
+
+# Postgres setting max_parallel_workers.
+postgres_server_max_parallel_workers: 8
+
+# User name that the postgres user runs as.
+postgres_server_user: postgres
