@@ -36,5 +36,8 @@ postgres_server_parallel_leader_participation: true
 # Postgres setting max_parallel_workers.
 postgres_server_max_parallel_workers: 8
 
+# Postgres setting max_locks_per_transaction.
+postgres_server_max_locks_per_transaction: 64
+
 # User name that the postgres user runs as.
 postgres_server_user: postgres
