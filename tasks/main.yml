@@ -15,15 +15,31 @@
       skip: true
   ignore_errors: true  # TODO: better solution
 
+- name: create directory for bind mount if necessary
+  file:
+    path: "{{ postgres_server_bind_mount_var_lib_pgsql_target }}"
+    state: directory
+  when: postgres_server_bind_mount_var_lib_pgsql
+
+- name: perform bind mount if necessary
+  mount:
+    path: "/var/lib/pgsql"
+    src: "{{ postgres_server_bind_mount_var_lib_pgsql_target }}"
+    opts: bind
+    state: mounted
+    fstype: none
+  when: postgres_server_bind_mount_var_lib_pgsql
+
 - name: perform installation
   include_tasks: install/{{ ansible_os_family }}.yml
 
 - name: initialize PostgreSQL database cluster
   environment:
     LC_ALL: "en_US.UTF-8"
+  vars:
+    ansible_become: "{{ postgres_server_initdb_become }}"
+    ansible_become_user: "{{ postgres_server_user }}"
   command: "{{ postgres_server_cmd_initdb }}"
-  become: "{{ postgres_server_initdb_become }}"
-  become_user: "{{ postgres_server_user }}"
   args:
     creates: "{{ postgres_server_data_location }}/PG_VERSION"
 

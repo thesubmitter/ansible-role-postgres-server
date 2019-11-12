@@ -1,5 +1,11 @@
 ---
 
+# Put database into alternative location with a bind mount.
+postgres_server_bind_mount_var_lib_pgsql: false
+
+# Where to put database.
+postgres_server_bind_mount_var_lib_pgsql_target: ""
+
 # Default version of Postgres server to install.
 postgres_server_version: "9.6"
 
