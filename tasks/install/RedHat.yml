@@ -12,6 +12,7 @@
       - python-psycopg2
       - sudo
       - wget
+      - perl
     state: present
 
 - name: fixup some locale issues
@@ -31,7 +32,7 @@
   shell: |
     set -eo pipefail
     wget -O - {{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/ 2>/dev/null | \
-    grep 'pgdg-{{ ansible_distribution|lower }}' | \
+    grep 'pgdg-redhat' | \
     perl -pe 's/^.*rpm">//g' | \
     perl -pe 's/<\/a>.*//g' | \
     tail -n 1

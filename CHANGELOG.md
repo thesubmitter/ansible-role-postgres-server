@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.1
+
+- allow installation of postgres 12
+- allow tuning of random access costs
+
 ## v0.2.0
 
 - Adding setting `postgres_server_max_locks_per_transaction`.

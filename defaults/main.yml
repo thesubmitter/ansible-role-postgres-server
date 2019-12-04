@@ -45,5 +45,8 @@ postgres_server_max_parallel_workers: 8
 # Postgres setting max_locks_per_transaction.
 postgres_server_max_locks_per_transaction: 64
 
+# Configuration for "random access" cost.
+postgres_server_random_page_cost: "4.0"
+
 # User name that the postgres user runs as.
 postgres_server_user: postgres
