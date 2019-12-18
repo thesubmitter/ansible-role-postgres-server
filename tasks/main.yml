@@ -33,6 +33,12 @@
 - name: perform installation
   include_tasks: install/{{ ansible_os_family }}.yml
 
+- name: extend path
+  copy:
+    dest: /etc/profile.d/postgres-path.sh
+    mode: a=rx
+    content: "export PATH=$PATH:/usr/pgsql-{{ postgres_server_version }}/bin"
+
 - name: initialize PostgreSQL database cluster
   environment:
     LC_ALL: "en_US.UTF-8"

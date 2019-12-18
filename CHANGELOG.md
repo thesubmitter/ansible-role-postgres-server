@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.2
+
+- setting PATH properly
+
 ## v0.2.1
 
 - allow installation of postgres 12
