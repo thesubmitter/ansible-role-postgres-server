@@ -1,5 +1,9 @@
 # Changelog
 
+## HEAD
+
+- Allow creation of users from configuration (e.g., PGwatch)
+
 ## v0.2.2
 
 - setting PATH properly

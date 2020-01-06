@@ -65,6 +65,16 @@
   systemd: name={{ postgres_server_service_name }} state=started enabled=yes
 #   ignore_errors: true
 
+- name: Create extra users
+  become_user: postgres
+  become: yes
+  postgresql_user:
+    name: "{{ item.user }}"
+    password: "{{ item.password }}"
+    conn_limit: "{{ item.conn_limit|default(none) }}"
+  loop: "{{ postgres_server_users|default([]) }}"
+  no_log: true  # secret passwords
+
 # - name: log1
 #   command: systemctl status {{ postgres_server_service_name }}
 #   ignore_errors: true
