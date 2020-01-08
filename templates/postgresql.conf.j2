@@ -447,12 +447,12 @@ log_rotation_size = 0			# Automatic rotation of logfiles will
 #debug_print_rewritten = off
 #debug_print_plan = off
 #debug_pretty_print = on
-log_checkpoints = on
-#log_connections = off
-#log_disconnections = off
-log_duration = on
-#log_error_verbosity = default		# terse, default, or verbose messages
-#log_hostname = off
+log_checkpoints = {{ "on" if postgres_server_log_checkpoints else "off" }}
+log_connections = {{ "on" if postgres_server_log_connections else "off" }}
+log_disconnections = {{ "on" if postgres_server_log_disconnections else "off" }}
+log_duration = {{ "on" if postgres_server_log_duration else "off" }}
+log_error_verbosity = {{ postgres_server_log_error_verbosity }}		# terse, default, or verbose messages
+log_hostname = {{ "on" if postgres_server_log_hostname else "off" }}
 log_line_prefix = '< %m > '			# special values:
 					#   %a = application name
 					#   %u = user name
@@ -474,9 +474,8 @@ log_line_prefix = '< %m > '			# special values:
 					#        processes
 					#   %% = '%'
 					# e.g. '<%u%%%d> '
-#log_lock_waits = off			# log lock waits >= deadlock_timeout
-log_statement = 'all'
-#log_statement = 'none'			# none, ddl, mod, all
+log_lock_waits = {{ "on" if postgres_server_log_lock_waits else "off" }}			# log lock waits >= deadlock_timeout
+log_statement = '{{ postgres_server_log_statements }}'			# none, ddl, mod, all
 #log_replication_commands = off
 #log_temp_files = -1			# log temporary files equal or larger
 					# than the specified size in kilobytes;
@@ -606,8 +605,19 @@ default_text_search_config = 'pg_catalog.english'
 
 #dynamic_library_path = '$libdir'
 #local_preload_libraries = ''
-#session_preload_libraries = ''
+{% set preload_libraries = [] %}
+{% if postgres_server_auto_explain_enabled %}
+  {{ preload_libraries.append("auto_explain") }}
+{% endif %}
 
+session_preload_libraries = '{{ ",".join(preload_libraries) }}'
+
+#------------------------------------------------------------------------------
+# auto_explain SETTINGS
+#------------------------------------------------------------------------------
+
+auto_explain.log_min_duration = {{ "on" if postgres_server_auto_explain_log_min_duration else "off" }}
+auto_explain.log_analyze = {{ "on" if postgres_server_auto_explain_log_analyze else "off" }}
 
 #------------------------------------------------------------------------------
 # LOCK MANAGEMENT

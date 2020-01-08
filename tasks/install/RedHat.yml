@@ -39,6 +39,7 @@
   args:
     executable: /bin/bash
   changed_when: false
+  check_mode: false
   register: latest_version
   tags: [skip_ansible_lint]  # yes, I want wget here
 

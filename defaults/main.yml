@@ -50,3 +50,36 @@ postgres_server_random_page_cost: "4.0"
 
 # User name that the postgres user runs as.
 postgres_server_user: postgres
+
+# Whether or not to lock checkpoints.
+postgres_server_log_checkpoints: false
+
+# Whether or not to lock connects.
+postgres_server_log_connections: false
+
+# Whether or not to lock disconnects.
+postgres_server_log_disconnections: false
+
+# Whether or not to log duration
+postgres_server_log_duration: false
+
+# Error logging verbosity.
+postgres_server_log_error_verbosity: "default"
+
+# Whether or not to log the host name.
+postgres_server_log_hostname: false
+
+# Whether or not to lock waits.
+postgres_server_log_lock_waits: false
+
+# Which statements to log.
+postgres_server_log_statements: "none"
+
+# Whether or not to enable the auto_explain module.
+postgres_server_auto_explain_enabled: false
+
+# Minimal duration to log auto explain for.
+postgres_server_auto_explain_log_min_duration: -1
+
+# Whether or not to use EXPLAIN ANALYZE.
+postgres_server_auto_explain_log_analyze: true
