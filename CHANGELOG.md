@@ -1,6 +1,6 @@
 # Changelog
 
-## HEAD
+## v0.3.0
 
 - Allow creation of users from configuration (e.g., PGwatch)
 - Greatly extending logging configuration and auto_explain module.
