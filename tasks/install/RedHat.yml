@@ -32,7 +32,8 @@
   get_url: 
     url: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     dest: /tmp/pgpkg.rpm
-  
+    use_proxy: yes
+    
 - name: install postgres repository
   yum:
     name: "/tmp/pgpkg.rpm"
