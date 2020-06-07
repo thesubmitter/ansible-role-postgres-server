@@ -26,6 +26,9 @@
     - 'en_us.UTF-8'
 
 - name: install postgres repository
+  vars:
+    base: http://download.postgresql.org/pub/repos/yum
+    ver: "{{ ansible_distribution_version }}"
   yum:
     name: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     state: present
