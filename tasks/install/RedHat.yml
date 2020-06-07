@@ -29,6 +29,13 @@
   vars:
     base: http://download.postgresql.org/pub/repos/yum
     ver: "{{ ansible_distribution_version }}"
+    vars:
+    proxy_env:
+      http_proxy: http://fastweb.int.bell.ca:80
+      HTTP_PROXY: http://fastweb.int.bell.ca:80
+      HTTPS_PROXY: http://fastweb.int.bell.ca:80
+      https_proxy: http://fastweb.int.bell.ca:80
+      
   get_url: 
     url: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     dest: /tmp/pgpkg.rpm
