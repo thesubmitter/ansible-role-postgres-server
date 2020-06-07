@@ -25,30 +25,9 @@
     - 'en_US:en'
     - 'en_us.UTF-8'
 
-- name: get latest version
-  vars:
-    base: http://download.postgresql.org/pub/repos/yum
-    ver: "{{ ansible_distribution_version }}"
-  shell: |
-    set -eo pipefail
-    wget -O - {{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/ 2>/dev/null | \
-    grep 'pgdg-redhat' | \
-    perl -pe 's/^.*rpm">//g' | \
-    perl -pe 's/<\/a>.*//g' | \
-    tail -n 1
-  args:
-    executable: /bin/bash
-  changed_when: false
-  check_mode: false
-  register: latest_version
-  tags: [skip_ansible_lint]  # yes, I want wget here
-
-- name: config postgres repository
-  vars:
-    base: http://download.postgresql.org/pub/repos/yum
-    ver: "{{ ansible_distribution_version }}"
+- name: install postgres repository
   yum:
-    name: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/{{ latest_version.stdout }}"
+    name: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     state: present
 
 - name: install postgres packages
