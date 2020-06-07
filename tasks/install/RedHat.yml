@@ -25,12 +25,17 @@
     - 'en_US:en'
     - 'en_us.UTF-8'
 
-- name: install postgres repository
+- name: get the pg package
   vars:
     base: http://download.postgresql.org/pub/repos/yum
     ver: "{{ ansible_distribution_version }}"
+  get_url: 
+    url: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    dest: /tmp/pgpkg.rpm
+  
+- name: install postgres repository
   yum:
-    name: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    name: "/tmp/pgpkg.rpm"
     state: present
 
 - name: install postgres packages
