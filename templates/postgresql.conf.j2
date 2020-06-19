@@ -160,7 +160,7 @@ dynamic_shared_memory_type = posix	# the default is the first option
 
 #max_files_per_process = 1000		# min 25
 					# (change requires restart)
-shared_preload_libraries = 'pg_stat_statements'  # restart on change
+shared_preload_libraries = '{{ postgres_shared_preload_libraries }}'  # restart on change
 
 # - Cost-Based Vacuum Delay -
 
