@@ -47,7 +47,7 @@
     ansible_become_user: "{{ postgres_server_user }}"
   command: "{{ postgres_server_cmd_initdb }}"
   args:
-    creates: "{{ postgres_server_data_location }}/PG_VERSION"
+    creates: "{{ postgres_server_data_location }}"
 
 - name: install postgres configuration
   template:
