@@ -7,7 +7,7 @@ postgres_server_bind_mount_var_lib_pgsql: false
 postgres_server_bind_mount_var_lib_pgsql_target: ""
 
 # Default version of Postgres server to install.
-postgres_server_version: "9.6"
+postgres_server_version: "12"
 
 # Server version in package:
 postgres_server_pkg_version: "{{ postgres_server_version|replace('.', '') }}"
