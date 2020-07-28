@@ -51,7 +51,6 @@
     cmd: dnf config-manager --disable postgresql
   changed_when: False
   ignore_errors: True
-  warn: False
 
 - name: install postgres packages
   yum:
