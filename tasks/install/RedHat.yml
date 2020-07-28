@@ -35,7 +35,7 @@
      HTTPS_PROXY: http://fastweb.int.bell.ca:80
      https_proxy: http://fastweb.int.bell.ca:80 
   get_url: 
-    url: "{{ base }}/{{ postgres_server_version }}/redhat/rhel-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    url: "{{ base }}/{{ postgres_server_version }}/reporpms/EL-{{ ver }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     dest: /tmp/pgpkg.rpm
     use_proxy: yes
   tags: pdpg
@@ -44,6 +44,11 @@
   yum:
     name: "/tmp/pgpkg.rpm"
     state: present
+
+- name: disable postgres repo
+  shell:
+    cmd: dnf config-manager --disable postgresql
+  changed_when: False
 
 - name: install postgres packages
   yum:
