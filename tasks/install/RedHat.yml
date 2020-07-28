@@ -36,7 +36,7 @@
      HTTPS_PROXY: http://fastweb.int.bell.ca:80
      https_proxy: http://fastweb.int.bell.ca:80 
   get_url: 
-    url: "{{ base }}/{{ postgres_server_version }}/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+    url: "{{ base }}/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     dest: /tmp/pgpkg.rpm
     use_proxy: yes
   tags: pdpg
