@@ -73,7 +73,7 @@
     password: "{{ item.password }}"
     conn_limit: "{{ item.conn_limit|default(none) }}"
   loop: "{{ postgres_server_users|default([]) }}"
-#  no_log: true  # secret passwords
+  no_log: true  # secret passwords
 
 # - name: log1
 #   command: systemctl status {{ postgres_server_service_name }}
